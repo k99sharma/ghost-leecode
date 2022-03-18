@@ -20,7 +20,7 @@ class Solution {
             else if(nums[mid] == target)
                 return mid;
             
-            else if(target > nums[mid]) end--;
+            else if(target > pivot) end--;
             else start++;
         }
         
