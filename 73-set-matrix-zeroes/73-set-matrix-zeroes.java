@@ -1,46 +1,41 @@
-class Position{
-    int row;
-    int col;
-    
-    Position(int row, int col){
-        this.row = row;
-        this.col = col;
-    }
-}
-
 class Solution {
-    public void setRowZero(int[][] matrix, int row){
-        for(int col=0; col<matrix[row].length; col++){
-            matrix[row][col] = 0;
-        }
-    }
-    
-    public void setColumnZero(int[][] matrix, int col){
-        for(int row=0; row<matrix.length;row++){
-            matrix[row][col] = 0;
-        }
-    }
-    
     public void setZeroes(int[][] matrix) {
-        HashSet<Position> hs = new HashSet<> ();
+        Boolean isCol = false;
+        int N = matrix.length;
+        int M = matrix[0].length;
         
-        // finding cells where 0 is present
-        for(int row=0; row<matrix.length; row++){
-            for(int col=0; col<matrix[row].length; col++){
+        for(int row=0; row<N; row++){
+            // checking if first cell (0,0) is 0 then mark isCol = true
+            // we are doing this because for this cell ---> first column and first row is same
+            if(matrix[row][0] == 0)
+                isCol = true;
+            
+            for(int col=1; col<M; col++){
+                // setting first column and first row as 0
                 if(matrix[row][col] == 0){
-                    Position pos = new Position(row, col);
-                    hs.add(pos);
+                    matrix[0][col] = 0;
+                    matrix[row][0] = 0;
                 }
             }
         }
         
-        // iterating over set and 0ing the columns and rows
-        for(Position pos : hs){
-            // zero row
-            setRowZero(matrix, pos.row);
-            
-            // zero column
-            setColumnZero(matrix, pos.col);
+        // zeroing all the values of respective 0 row and 0 column
+        for(int row=1; row<N; row++){
+            for(int col=1; col<M; col++){
+                if(matrix[0][col] == 0 || matrix[row][0] == 0)
+                    matrix[row][col] = 0;
+            }
+        }
+        
+        // checking if first row needed to be zero
+        if(matrix[0][0] == 0)
+            for(int col=0; col<M; col++)
+                matrix[0][col] = 0;
+        
+        // checking if first column needed to be zero
+        if(isCol){
+            for(int row=0; row<N; row++)
+                matrix[row][0] = 0;
         }
     }
 }
