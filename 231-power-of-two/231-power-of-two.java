@@ -1,15 +1,15 @@
 class Solution {
     public boolean isPowerOfTwo(int n) {
-        int counter = 0;
+        if(n <= 0)
+            return false;
         
-        while(n > 0){
-            if((n&1) == 1)
-                counter++;
-            
-            n = n>>1;
-        }
+        if(n == 1)
+            return true;
         
-        if(counter == 1)
+        if(!isPowerOfTwo(n/2))
+            return false;
+        
+        if(n%2 == 0)
             return true;
         
         return false;
