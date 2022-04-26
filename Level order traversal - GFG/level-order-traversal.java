@@ -125,6 +125,22 @@ class Node
 */
 class Solution
 {
+    static void findLevelOrder(Queue<Node> q, ArrayList<Integer> result){
+        if(q.isEmpty())
+            return;
+            
+        Node temp = q.poll();
+        result.add(temp.data);
+        
+        if(temp.left != null)
+            q.add(temp.left);
+            
+        if(temp.right != null)
+            q.add(temp.right);
+            
+        findLevelOrder(q, result);
+    }
+    
     //Function to return the level order traversal of a tree.
     static ArrayList <Integer> levelOrder(Node node) 
     {
@@ -133,18 +149,7 @@ class Solution
         
         q.add(node);
         
-        while(!q.isEmpty()){
-            Node temp = q.poll();
-            
-            result.add(temp.data);
-            
-            if(temp.left != null)
-                q.add(temp.left);
-                
-            if(temp.right != null)
-                q.add(temp.right);
-        }
-        
+        findLevelOrder(q, result);
         
         return result;
     }
