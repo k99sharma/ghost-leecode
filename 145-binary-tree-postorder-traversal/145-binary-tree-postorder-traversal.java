@@ -14,23 +14,29 @@
  * }
  */
 class Solution {
-    public void postorder(TreeNode root, List<Integer> result){
-        if(root == null)
-            return;
-        
-        postorder(root.left, result);
-        postorder(root.right, result);
-        result.add(root.val);
-    }
-    
     public List<Integer> postorderTraversal(TreeNode root) {
-        // recursive approach
+        Stack<TreeNode> st = new Stack<> ();
+        Stack<TreeNode> out = new Stack<> ();
         List<Integer> result = new ArrayList<> ();
         
         if(root == null)
             return result;
         
-        postorder(root, result);
+        st.push(root);
+        
+        while(!st.empty()){
+            TreeNode curr = st.pop();
+            out.add(curr);
+            
+            if(curr.left != null)
+                st.push(curr.left);
+            
+            if(curr.right != null)
+                st.push(curr.right);
+        }
+        
+        while(!out.empty())
+            result.add(out.pop().val);
         
         return result;
     }
