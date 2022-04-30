@@ -1,32 +1,16 @@
 class Solution {
-    static int count = 0;
-    
-    public void findCount(int[] nums, int target, int idx, int currSum){
-        // base case 
+    public int findCount(int[] nums, int target, int idx, int sum){
         if(idx == nums.length){
-            if(currSum == target){
-                count++;
-            }
-                
-            return;
-        }
+            if(sum == target)
+                return 1;
+            
+            return 0;
+        }   
         
-        // first take the positive value of number
-        currSum = currSum + nums[idx];
-        findCount(nums, target, idx+1, currSum);
-        
-        // remove the num value from sum
-        currSum = currSum - nums[idx];
-        
-        // now try with the negative value of number
-        currSum = currSum + (-1 * nums[idx]);
-        findCount(nums, target, idx+1, currSum);
+        return findCount(nums, target, idx+1, sum + nums[idx]) + findCount(nums, target, idx+1, sum-nums[idx]);
     }
     
     public int findTargetSumWays(int[] nums, int target) {
-        count = 0;
-        findCount(nums, target, 0, 0);
-        int result = count;
-        return result;
+        return findCount(nums, target, 0, 0);
     }
 }
