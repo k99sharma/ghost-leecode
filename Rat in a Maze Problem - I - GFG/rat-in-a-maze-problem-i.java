@@ -46,10 +46,12 @@ class Solution {
             // mark the cell
             vis[x][y] = 1;
             
-            findPath(mat, result, x-1, y, comb + 'U', N, vis);
+            comb += "U";     
+            findPath(mat, result, x-1, y, comb, N, vis);
             
             // unmark the cell
             vis[x][y] = 0;
+            comb = comb.substring(0, comb.length()-1);
         }
         
         // downwards: D
@@ -57,10 +59,12 @@ class Solution {
             // mark the cell
             vis[x][y] = 1;
             
-            findPath(mat, result, x+1, y, comb + 'D', N, vis);
+            comb += "D";
+            findPath(mat, result, x+1, y, comb, N, vis);
 
             // unmark the cell
             vis[x][y] = 0;
+            comb = comb.substring(0, comb.length()-1);
         }
         
         // right: R
@@ -68,10 +72,12 @@ class Solution {
             // mark the cell
             vis[x][y] = 1;
             
-            findPath(mat, result, x, y+1, comb + 'R', N, vis);
+            comb += "R";
+            findPath(mat, result, x, y+1, comb, N, vis);
             
             // unmark the cell
             vis[x][y] = 0;
+            comb = comb.substring(0, comb.length()-1);
         }
         
         // left: L
@@ -79,10 +85,12 @@ class Solution {
             // mark the cell
             vis[x][y] = 1;
             
-            findPath(mat, result, x, y-1, comb + 'L', N, vis);
+            comb += "L";
+            findPath(mat, result, x, y-1, comb, N, vis);
             
             // unmark the cell
             vis[x][y] = 0;
+            comb = comb.substring(0, comb.length()-1);
         }
     }
     
