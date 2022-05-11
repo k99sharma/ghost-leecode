@@ -33,7 +33,7 @@ class Rat {
 
 // m is the given matrix and n is the order of matrix
 class Solution {
-    public static void findPath(int[][] mat, ArrayList<String> result, int x, int y, String comb, int N, int[][] vis){
+    public static void findPath(int[][] mat, ArrayList<String> result, int x, int y, String comb, int N){
         // BASE CASE: destination is reached
         if(x == N-1 && y == N-1){
             result.add(comb);       // add combination to result
@@ -42,54 +42,58 @@ class Solution {
 
         // direct rat to other paths
         // upwards: U
-        if((x-1) >= 0 && vis[x-1][y] == 0 && mat[x-1][y] == 1){
+        if((x-1) >= 0 && mat[x-1][y] != '#' && mat[x-1][y] == 1){
             // mark the cell
-            vis[x][y] = 1;
+            int temp = mat[x][y];
+            mat[x][y] = '#';
             
             comb += "U";     
-            findPath(mat, result, x-1, y, comb, N, vis);
+            findPath(mat, result, x-1, y, comb, N);
             
             // unmark the cell
-            vis[x][y] = 0;
+            mat[x][y] = temp;
             comb = comb.substring(0, comb.length()-1);
         }
         
         // downwards: D
-        if((x+1) < N && vis[x+1][y] == 0 && mat[x+1][y] == 1){
+        if((x+1) < N && mat[x+1][y] != '#' && mat[x+1][y] == 1){
             // mark the cell
-            vis[x][y] = 1;
+            int temp = mat[x][y];
+            mat[x][y] = '#';
             
             comb += "D";
-            findPath(mat, result, x+1, y, comb, N, vis);
+            findPath(mat, result, x+1, y, comb, N);
 
             // unmark the cell
-            vis[x][y] = 0;
+            mat[x][y] = temp;
             comb = comb.substring(0, comb.length()-1);
         }
         
         // right: R
-        if((y+1) < N && vis[x][y+1] == 0 && mat[x][y+1] == 1){
+        if((y+1) < N && mat[x][y+1] != '#' && mat[x][y+1] == 1){
             // mark the cell
-            vis[x][y] = 1;
+            int temp = mat[x][y];
+            mat[x][y] = '#';
             
             comb += "R";
-            findPath(mat, result, x, y+1, comb, N, vis);
+            findPath(mat, result, x, y+1, comb, N);
             
             // unmark the cell
-            vis[x][y] = 0;
+            mat[x][y] = temp;
             comb = comb.substring(0, comb.length()-1);
         }
         
         // left: L
-        if((y-1) >= 0 && vis[x][y-1] == 0 && mat[x][y-1] == 1){
+        if((y-1) >= 0 && mat[x][y-1] != '#' && mat[x][y-1] == 1){
             // mark the cell
-            vis[x][y] = 1;
+            int temp = mat[x][y];
+            mat[x][y] = '#';
             
             comb += "L";
-            findPath(mat, result, x, y-1, comb, N, vis);
+            findPath(mat, result, x, y-1, comb, N);
             
             // unmark the cell
-            vis[x][y] = 0;
+            mat[x][y] = temp;
             comb = comb.substring(0, comb.length()-1);
         }
     }
@@ -109,7 +113,7 @@ class Solution {
         if(m[0][0] == 0)
             return result;
         
-        findPath(m, result, 0, 0, "", n,);
+        findPath(m, result, 0, 0, "", n);
         
         return result;
     }
