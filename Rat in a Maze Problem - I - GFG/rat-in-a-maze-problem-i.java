@@ -109,7 +109,7 @@ class Solution {
         if(m[0][0] == 0)
             return result;
         
-        findPath(m, result, 0, 0, "", n, vis);
+        findPath(m, result, 0, 0, "", n,);
         
         return result;
     }
