@@ -1,38 +1,32 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        // sort the arrays
+        List<List<Integer>> result = new ArrayList<> ();
         Arrays.sort(nums);
-        
-        List<List<Integer>> result = new LinkedList<> ();
-        
-        // a + b + c = 0;
-        // lets make a constant so b+c = -a
-        // now sum = b+c where a is constant 
-        // we can find sum using 2 pointers approach
-        
         for(int i=0; i<nums.length-2; i++){
-            // avoiding dupliates using this condition 
-            if(i == 0 || (i>0 && nums[i-1] != nums[i])){
-                int lo = i+1;
-                int hi = nums.length-1;
-                int sum = 0 - nums[i];
-                
-                while(lo < hi){
-                    if(nums[lo]+nums[hi] == sum){
-                        // store it in result
-                        result.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
-                        
-                        while((lo < hi) && nums[lo] == nums[lo+1])lo++; // avoiding duplicates
-                        while((lo < hi) && nums[hi] == nums[hi-1])hi--; // avoiding duplicates
-                        
-                        lo++;
-                        hi--;
-                    }
-                    else if((nums[lo]+nums[hi]) < sum)
-                        lo++;
-                    else
-                        hi--;
+            int low = i+1;
+            int high = nums.length-1;
+            int sum = 0 - nums[i];
+            
+            while(low < high){
+                if((nums[low]+nums[high]) == sum){
+                    List<Integer> list = new ArrayList<> ();
+                    list.add(nums[i]);
+                    list.add(nums[low]);
+                    list.add(nums[high]);
+                    
+                    if(!result.contains(list))
+                        result.add(list);
+                    
+                    while((low < high) && nums[low] == nums[low+1])low++; // avoiding duplicates
+                    while((low < high) && nums[high] == nums[high-1])high--; // avoiding duplicates
+                    
+                    low++;
+                    high--;
                 }
+                else if((nums[low]+nums[high]) > sum)
+                    high--;
+                else
+                    low++;
             }
         }
         
