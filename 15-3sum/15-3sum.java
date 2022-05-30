@@ -7,27 +7,24 @@ class Solution {
             int high = nums.length-1;
             int sum = 0 - nums[i];
             
-            while(low < high){
-                if((nums[low]+nums[high]) == sum){
-                    List<Integer> list = new ArrayList<> ();
-                    list.add(nums[i]);
-                    list.add(nums[low]);
-                    list.add(nums[high]);
+            if(i == 0 || (i>0 && nums[i-1] != nums[i])){
+                while(low < high){
+                    if((nums[low]+nums[high]) == sum){
+                        result.add(Arrays.asList(nums[i], nums[low], nums[high]));
                     
-                    if(!result.contains(list))
-                        result.add(list);
-                    
-                    while((low < high) && nums[low] == nums[low+1])low++; // avoiding duplicates
-                    while((low < high) && nums[high] == nums[high-1])high--; // avoiding duplicates
-                    
-                    low++;
-                    high--;
+                        while((low < high) && nums[low] == nums[low+1])low++; // avoiding duplicates
+                        while((low < high) && nums[high] == nums[high-1])high--; // avoiding duplicates
+
+                        low++;
+                        high--;
+                    }
+                    else if((nums[low]+nums[high]) > sum)
+                        high--;
+                    else
+                        low++;
                 }
-                else if((nums[low]+nums[high]) > sum)
-                    high--;
-                else
-                    low++;
             }
+                
         }
         
         return result;
